@@ -67,14 +67,19 @@
               <input class="form-check-input" type="checkbox" [(ngModel)]="dropdownEnabled"> Enable/disable
             </label>
           </div>
+          <div>
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="closeOnSelection"> Close dropdown on selection
+            </label>
+          </div>
           <div class="form-group form-inline">
             <label>buttonClass</label>
             <select class="form-control mx-sm-3" [(ngModel)]="buttonClass">
               <option *ngFor="let c of buttonClasses" [value]="c">{{c}}</option>
             </select>
           </div>
-          <ngx-dropdown-treeview [config]="config" [items]="items" [buttonClass]="buttonClass"
-            (selectedChange)="values = $event" [disabled]="!dropdownEnabled"
+          <ngx-dropdown-treeview #dropdownTreeview [config]="config" [items]="items" [buttonClass]="buttonClass"
+            (selectedChange)="onSelectedChange($event)" [disabled]="!dropdownEnabled"
             [ngxDisabledOnSelector]="'button.dropdown-toggle'" (filterChange)="onFilterChange($event)">
           </ngx-dropdown-treeview>
         </div>
