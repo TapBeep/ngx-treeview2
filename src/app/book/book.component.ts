@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {TreeviewConfig, TreeviewItem} from 'ngx-treeview2';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {DropdownTreeviewComponent, TreeviewConfig, TreeviewItem} from 'ngx-treeview2';
 import {BookService} from './book.service';
 
 @Component({
@@ -33,6 +33,9 @@ export class BookComponent implements OnInit {
   ];
   buttonClass = this.buttonClasses[0];
 
+  @ViewChild('dropdownTreeview') dropdownTreeview: DropdownTreeviewComponent;
+  closeOnSelection = false;
+
   constructor(
     private service: BookService
   ) { }
@@ -43,5 +46,12 @@ export class BookComponent implements OnInit {
 
   onFilterChange(value: string): void {
     console.log('filter:', value);
+  }
+
+  onSelectedChange(event: any[]) {
+    this.values = event;
+    if (this.closeOnSelection) {
+      this.dropdownTreeview.dropdownDirective.close();
+    }
   }
 }
